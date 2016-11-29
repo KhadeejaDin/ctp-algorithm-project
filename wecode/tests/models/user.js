@@ -81,8 +81,22 @@ describe('creating users', function() {
 
   it('should save when all properties are properly provided', function (done) {
     models.user.create({
-      email: 'userpeople@gmail.com',
-      username: 'userpeople',
+      email: 'usera@gmail.com',
+      username: 'usera',
+      password: 'hello'
+    })
+    .then(function() {
+      done();
+    })
+    .catch(function (e) {
+      done(e);
+    })
+  })
+
+  it('should save when all properties are properly provided', function (done) {
+    models.user.create({
+      email: 'userb@gmail.com',
+      username: 'userb',
       password: 'hello'
     })
     .then(function() {
