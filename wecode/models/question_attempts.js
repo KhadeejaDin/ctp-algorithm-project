@@ -23,13 +23,19 @@ module.exports = function(sequelize, DataTypes) {
       },
       type: DataTypes.INTEGER
     },
-    code_id: {
+    upload_code: {
       allowNull: false,
       validate: {
         notEmpty: true,
-        isNumeric: true,
       },
-      type: DataTypes.INTEGER
+      type: DataTypes.TEXT
+    },
+    upload_output: {
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+      type: DataTypes.TEXT
     },
     success: {
       allowNull: false,

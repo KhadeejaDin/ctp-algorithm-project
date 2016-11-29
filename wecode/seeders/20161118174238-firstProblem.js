@@ -42,7 +42,7 @@ module.exports = {
         question_content: 'https://uva.onlinejudge.org/external/111/11172.pdf',
         number_attempts: 0,
         number_success: 0,
-        date: '2016/10/12',
+        date: '2016/11/24',
         createdAt: '2016/10/12',
         updatedAt: '2016/10/12'
       }], {});

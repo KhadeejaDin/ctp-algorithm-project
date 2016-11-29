@@ -46,7 +46,7 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         notEmpty: true,
       },
-      type: DataTypes.DATE
+      type: DataTypes.DATEONLY
     }
   }, {
     classMethods: {

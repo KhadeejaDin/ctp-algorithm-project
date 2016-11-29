@@ -31,21 +31,50 @@ module.exports = {
     res.render('problem');
   },
   submit(req, res){
-    // there is an error here because models is not working
-    models.uploaded_code.create({
-      uploaded_text: req.body.source_code
-    });
+    var success = true;
+    var user_output = req.body.user_output;
+    var today_date = new Date();
 
-    models.question_attempt.create({
-      question_id: 1,
-      user_id: 1,
-      code_id: 1,
-      success: true,
-      upload_time: "ALAN WILL FIGURE THIS OUT"
-    }).then(() => {
-      res.redirect('/results');
+    models.questions.findOne({ where: {date: today_date.toJSON().slice(0,10)} }).then((question) => {
+        var question_id = question.question_id;
+        var answer_output = question.output;
+        var grades = grade(user_output, answer_output);
+        console.log(success);
+
+        models.question_attempts.create({
+          question_id: question_id,
+          user_id: req.session.passport.user,
+          upload_code: req.body.source_code,
+          upload_output: req.body.user_output,
+          success: success,
+          upload_time: today_date
+        }).then(() => {
+          res.redirect('/results');
+        }).catch(() => {
+          this.index;
+        });
+
     }).catch(() => {
       this.index;
     });
+
+    function grade(output, answer){
+      var output_lines = output.trim().split("\n");
+      var answer_lines = answer.trim().split("\n");
+      var check_lines = [];
+      for (var i = 0; i < output_lines.length; i++){
+        if (output_lines[i] == answer_lines[i]) {
+          check_lines[i] = "Correct!";
+        }
+        else {
+          success = false;
+          check_lines[i] = "Incorrect!";
+        }
+      }
+      return check_lines;
+    }
+
+
+
   }
 };
